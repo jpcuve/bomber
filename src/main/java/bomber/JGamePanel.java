@@ -11,7 +11,7 @@ import java.util.Set;
  * Ecran du jeu.
  */
 public class JGamePanel extends JPanel implements ComponentListener, KeyListener, ActionListener {
-    public static final int PERIOD = 20; // nombre de millisecondes entre chaque rrafraichissement d'écran
+    public static final int PERIOD = 20; // nombre de millisecondes entre chaque rafraichissement d'écran
     private JBomberFrame bomberFrame;
     private Timer timer;
     private long frame = 0;
@@ -31,10 +31,11 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         int w = getWidth();
         int h = getHeight();
         // ici en principe tu dessines en fonction de ton bomberFrame.getGameModel()
-        // pour simplifier j'écris le numéro du frame au milieu de l'écran
+        // pour simplifier j'affiche le numéro du frame au milieu de l'écran
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, w, h);
         g.setColor(Color.RED);
+        g.drawString("Press ESC to quit", w / 10, h / 10);
         g.drawString(Long.toString(frame), w / 2, h / 2);
         frame++;
     }

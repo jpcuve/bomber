@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
  * Ici je lui mets juste un bouton "démarrage" du jeu.
  * Cliquer sur ce bouton va remplacer cet écran par l'écran de jeu proprement dit, qui est complétement
  * différent car c'est un écran animé.
- * Je lui donne une dimension préférée.
  */
 public class JPresentationPanel extends JPanel implements ActionListener {
     private JBomberFrame frame;
