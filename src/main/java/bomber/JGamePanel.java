@@ -42,9 +42,8 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
 
     @Override
     public void actionPerformed(ActionEvent e) { // va être appelé tous les "period"
-        final HashSet<Integer> keys = new HashSet<>(keyCodes); // lire les input (que les touches clavier ici mais facile d'ajouter la souris)
         final GameModel gameModel = bomberFrame.getGameModel();
-        gameModel.update(keys); // updater le modèle en passant les input comme paramètre
+        gameModel.update(keyCodes); // updater le modèle en passant les input comme paramètre
         repaint(); // provoquer le rafraichissement de la fenetre (dessin du modèle). Va appeler paint(Graphics g) dès que possible.
     }
 

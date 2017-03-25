@@ -1,7 +1,7 @@
 package bomber;
 
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by jpc on 25-03-17.
@@ -10,7 +10,7 @@ import java.util.HashSet;
  */
 public class GameModel {
 
-    public void update(HashSet<Integer> keyCodes){
+    public void update(Set<Integer> keyCodes){
         if (keyCodes.size() > 0){
             System.out.print("Héros");
             if (keyCodes.contains(KeyEvent.VK_UP)){
