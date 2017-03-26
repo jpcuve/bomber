@@ -3,6 +3,7 @@ package bomber;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,8 @@ import java.util.Set;
  */
 public class JGamePanel extends JPanel implements ComponentListener, KeyListener, ActionListener {
     public static final int PERIOD = 20; // nombre de millisecondes entre chaque rafraichissement d'écran
+    public static final int TILE_SIZE = 32;
+    private Dimension preferredSize = new Dimension(GameModel.WIDTH * JGamePanel.TILE_SIZE, GameModel.HEIGHT * JGamePanel.TILE_SIZE);
     private JBomberFrame bomberFrame;
     private Timer timer;
     private long frame = 0;
@@ -34,6 +37,13 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         // pour simplifier j'affiche le numéro du frame au milieu de l'écran
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, w, h);
+        final Tile[][] tiles = bomberFrame.getGameModel().getTiles();
+        for (int y = 0; y < GameModel.HEIGHT; y++){
+            for (int x = 0; x < GameModel.WIDTH; x++){
+                final BufferedImage tileImage = tiles[x][y].getImage(frame);
+                g.drawImage(tileImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+            }
+        }
         g.setColor(Color.RED);
         g.drawString("Press ESC to quit", w / 10, h / 10);
         g.drawString(Long.toString(frame), w / 2, h / 2);
@@ -84,4 +94,8 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         keyCodes.remove(e.getKeyCode());
     }
 
+    @Override
+    public Dimension getPreferredSize() {
+        return preferredSize;
+    }
 }

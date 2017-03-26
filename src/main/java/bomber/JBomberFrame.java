@@ -12,7 +12,6 @@ import java.awt.*;
 public class JBomberFrame extends JFrame {
     public static final String PRESENTATION = "presentation";
     public static final String GAME = "game";
-    private Dimension preferredSize = new Dimension(400, 300);
     private JPanel contentPanel = new JPanel();
     private CardLayout cardLayout = new CardLayout(); // ce layout permet de superposer des écrans à la façon d'un jeu de cartes. Seule une carte est montrée à la fois.
     private GameModel gameModel = new GameModel(); // modèle du jeu (contient les gameobject)
@@ -32,6 +31,7 @@ public class JBomberFrame extends JFrame {
     }
 
     public void switchToGame(){
+        gameModel.loadLevel("level.txt");
         cardLayout.show(contentPanel, GAME);
     }
 
@@ -39,8 +39,4 @@ public class JBomberFrame extends JFrame {
         return gameModel;
     }
 
-    @Override
-    public Dimension getPreferredSize() {
-        return preferredSize;
-    }
 }
