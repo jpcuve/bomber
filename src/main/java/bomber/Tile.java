@@ -9,25 +9,25 @@ public enum Tile {
     EMPTY('.', false){
         @Override
         public BufferedImage getImage(long frame) {
-            return ImageShop.getMicroSprite(9, 5);
+            return ImageShop.getMicroSprite(9, 9);
         }
     },
     PLAYER('P', false){
         @Override
         public BufferedImage getImage(long frame) {
-            return (frame / 25) % 2 == 0 ? ImageShop.getMicroSprite(0, 1) : ImageShop.getMicroSprite(2, 1);
+            return (frame / 25) % 2 == 0 ? ImageShop.getMicroSprite(2, 0) : ImageShop.getMicroSprite(3, 0);
         }
     },
-    POWER_UP('U', false){
+    WEREWOLF('U', false){
         @Override
         public BufferedImage getImage(long frame) {
-            return (frame / 10) % 2 == 0 ? ImageShop.getMicroSprite(3, 3) : ImageShop.getMicroSprite(4, 3);
+            return (frame / 10) % 2 == 0 ? ImageShop.getMicroSprite(0, 1) : ImageShop.getMicroSprite(1, 1);
         }
     },
     WALL('W', true){
         @Override
         public BufferedImage getImage(long frame) {
-            return ImageShop.getMicroSprite(0, 7);
+            return ImageShop.getMicroSprite(1, 9);
         }
     };
 

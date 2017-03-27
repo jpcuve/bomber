@@ -47,8 +47,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
             }
         }
         g.setColor(Color.RED);
-        g.drawString("Press ESC to quit", w / 10, h / 10);
-        g.drawString(Long.toString(frame), w / 2, h / 2);
+        g.drawString(String.format("Press ESC to quit, arrows to move player. Frame: %s", frame), w / 10, h / 10);
         frame++;
     }
 

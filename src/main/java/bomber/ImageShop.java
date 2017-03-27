@@ -15,7 +15,7 @@ public class ImageShop {
     private static Map<String, BufferedImage> cache = new HashMap<>();
 
     static {
-        try (InputStream is = ClassLoader.getSystemResourceAsStream("microsprites_by_romson.gif")){
+        try (InputStream is = ClassLoader.getSystemResourceAsStream("Sprites.png")){
             microSprites = ImageIO.read(is);
         } catch (IOException e){
             e.printStackTrace();
@@ -25,6 +25,6 @@ public class ImageShop {
     // methode memoizée car getSubImage est une opération couteuse pour le processeur
     public static BufferedImage getMicroSprite(int x, int y){
         final String key = String.format("micro-sprite-%s-%s", x, y);
-        return cache.computeIfAbsent(key, k -> microSprites.getSubimage(23 + x * 22, 23 + y * 22, 16, 16)); // attention java 8
+        return cache.computeIfAbsent(key, k -> microSprites.getSubimage(x * 10, y * 10, 8, 8)); // attention java 8
     }
 }
