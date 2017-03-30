@@ -9,7 +9,7 @@ public enum Tile {
     EMPTY('.', false){
         @Override
         public BufferedImage getImage(long frame) {
-            return ImageShop.getMicroSprite(9, 9);
+            return ImageShop.getMicroSprite(0, 9);
         }
     },
     PLAYER('P', false){
