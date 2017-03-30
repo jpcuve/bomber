@@ -14,7 +14,9 @@ import java.util.Set;
 public class JGamePanel extends JPanel implements ComponentListener, KeyListener, ActionListener {
     public static final int PERIOD = 20; // nombre de millisecondes entre chaque rafraichissement d'écran
     public static final int TILE_SIZE = 32;
-    private Dimension preferredSize = new Dimension(GameModel.WIDTH * JGamePanel.TILE_SIZE, GameModel.HEIGHT * JGamePanel.TILE_SIZE);
+    public static final int WINDOW_WIDTH = 16;
+    public static final int WINDOW_HEIGHT = 16;
+    private Dimension preferredSize = new Dimension(WINDOW_WIDTH * JGamePanel.TILE_SIZE, WINDOW_HEIGHT * JGamePanel.TILE_SIZE);
     private JBomberFrame bomberFrame;
     private Timer timer;
     private long frame = 0;
@@ -39,11 +41,15 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         // pour simplifier j'affiche le numéro du frame au milieu de l'écran
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, w, h);
-        final Tile[][] tiles = bomberFrame.getGameModel().getTiles();
-        for (int y = 0; y < GameModel.HEIGHT; y++){
-            for (int x = 0; x < GameModel.WIDTH; x++){
+        final GameModel gameModel = bomberFrame.getGameModel();
+        final Point playerPosition = gameModel.getPlayerPosition();
+        // ensure player is displayed on screen!
+        final Point topLeft = new Point(Math.max(playerPosition.x - w / TILE_SIZE + 2, 0), Math.max(playerPosition.y - h / TILE_SIZE + 2, 0));
+        final Tile[][] tiles = gameModel.getTiles();
+        for (int y = 0; y < gameModel.getHeight(); y++){
+            for (int x = 0; x < gameModel.getWidth(); x++){
                 final BufferedImage tileImage = tiles[x][y].getImage(frame);
-                g.drawImage(tileImage, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                g.drawImage(tileImage, (x - topLeft.x) * TILE_SIZE, (y - topLeft.y) * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
             }
         }
         g.setColor(Color.RED);

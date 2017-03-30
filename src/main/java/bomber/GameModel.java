@@ -14,9 +14,9 @@ import java.util.Set;
  * pas des événements du passé qui ne sont pas mémorisé.
  */
 public class GameModel {
-    public static final int WIDTH = 16;
-    public static final int HEIGHT = 16;
-    private Tile[][] tiles = new Tile[WIDTH][HEIGHT];
+    private int width;
+    private int height;
+    private Tile[][] tiles;
     private Point playerPosition = new Point(0, 0);
 
     public GameModel(){
@@ -27,6 +27,9 @@ public class GameModel {
         try (final Scanner scanner = new Scanner(ClassLoader.getSystemResourceAsStream(resourceName))){
             int y = 0;
             String line;
+            this.width = scanner.nextInt();
+            this.height = scanner.nextInt();
+            this.tiles = new Tile[width][height];
             while(scanner.hasNext()){
                 line = scanner.next();
                 int x = 0;
@@ -44,8 +47,20 @@ public class GameModel {
         }
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public Tile[][] getTiles() {
         return tiles;
+    }
+
+    public Point getPlayerPosition() {
+        return playerPosition;
     }
 
     public void update(long frame, Set<Integer> keyCodes){

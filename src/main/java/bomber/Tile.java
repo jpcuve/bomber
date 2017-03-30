@@ -24,6 +24,12 @@ public enum Tile {
             return (frame / 10) % 2 == 0 ? ImageShop.getMicroSprite(0, 1) : ImageShop.getMicroSprite(1, 1);
         }
     },
+    DOG('D', false){
+        @Override
+        public BufferedImage getImage(long frame) {
+            return (frame / 10) % 2 == 0 ? ImageShop.getMicroSprite(2, 1) : ImageShop.getMicroSprite(3, 1);
+        }
+    },
     WALL('W', true){
         @Override
         public BufferedImage getImage(long frame) {
