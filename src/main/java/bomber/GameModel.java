@@ -18,6 +18,7 @@ public class GameModel {
     private int height;
     private Tile[][] tiles;
     private Point playerPosition = new Point(0, 0);
+    private Point playerMove = new Point(0, 0);
 
     public GameModel(){
         loadLevel("level.txt"); // choisir une image de base autre pour le defaut
@@ -63,21 +64,26 @@ public class GameModel {
         return playerPosition;
     }
 
+    public Point getPlayerMove() {
+        return playerMove;
+    }
+
     public void update(long frame, Set<Integer> keyCodes){
         if (keyCodes.size() > 0){ // si oui des touches ont été pressées
-            final Point newPlayerPosition = new Point(playerPosition);
+            this.playerMove = new Point(0, 0);
             if (keyCodes.contains(KeyEvent.VK_UP)){
-                newPlayerPosition.y -= 1;
+                this.playerMove.y -= 1;
             }
             if (keyCodes.contains(KeyEvent.VK_DOWN)){
-                newPlayerPosition.y += 1;
+                this.playerMove.y += 1;
             }
             if (keyCodes.contains(KeyEvent.VK_LEFT)){
-                newPlayerPosition.x -= 1;
+                this.playerMove.x -= 1;
             }
             if (keyCodes.contains(KeyEvent.VK_RIGHT)){
-                newPlayerPosition.x += 1;
+                this.playerMove.x += 1;
             }
+            final Point newPlayerPosition = new Point(playerPosition.x + playerMove.x, playerPosition.y + playerMove.y);
             // si la nouvelle position est un obstacle, rien faire
             if (!tiles[newPlayerPosition.x][newPlayerPosition.y].isObstacle()){
                 tiles[playerPosition.x][playerPosition.y] = Tile.EMPTY;

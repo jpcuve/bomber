@@ -21,6 +21,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
     private Timer timer;
     private long frame = 0;
     private Set<Integer> keyCodes = new HashSet<>();
+    private Rectangle view = new Rectangle(); // in tiles unit
 
 
     public JGamePanel(JBomberFrame bomberFrame) {
@@ -71,6 +72,12 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
 
     @Override
     public void componentResized(ComponentEvent e) {
+        System.out.println("JGamePanel.componentResized");
+        // computing topLeft, centering player on screen
+        view.setSize(getWidth() / TILE_SIZE, getHeight() / TILE_SIZE);
+        final GameModel gameModel = bomberFrame.getGameModel();
+        view.setLocation(gameModel.getPlayerPosition().x - (int) view.getWidth() / 2, gameModel.getPlayerPosition().y - (int) view.getHeight() / 2);
+
     }
 
     @Override
