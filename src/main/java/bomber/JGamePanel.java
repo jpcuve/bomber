@@ -50,7 +50,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         for (int y = 0; y < gameModel.getHeight(); y++){
             for (int x = 0; x < gameModel.getWidth(); x++){
                 final BufferedImage tileImage = tiles[x][y].getImage(frame);
-                g.drawImage(tileImage, (x - topLeft.x) * TILE_SIZE, (y - topLeft.y) * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
+                g.drawImage(tileImage, (x - view.getLocation().x) * TILE_SIZE, (y - view.getLocation().y) * TILE_SIZE, TILE_SIZE, TILE_SIZE, null);
             }
         }
         g.setColor(Color.RED);
@@ -76,8 +76,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         // computing topLeft, centering player on screen
         view.setSize(getWidth() / TILE_SIZE, getHeight() / TILE_SIZE);
         final GameModel gameModel = bomberFrame.getGameModel();
-        view.setLocation(gameModel.getPlayerPosition().x - (int) view.getWidth() / 2, gameModel.getPlayerPosition().y - (int) view.getHeight() / 2);
-
+        view.setLocation(gameModel.getPlayerPosition().x - view.getSize().width / 2, gameModel.getPlayerPosition().y - view.getSize().height / 2);
     }
 
     @Override
