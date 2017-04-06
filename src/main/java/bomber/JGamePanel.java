@@ -42,10 +42,8 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         // pour simplifier j'affiche le numéro du frame au milieu de l'écran
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, w, h);
+        adjustView();
         final GameModel gameModel = bomberFrame.getGameModel();
-        final Point playerPosition = gameModel.getPlayerPosition();
-        // ensure player is displayed on screen!
-        final Point topLeft = new Point(Math.max(playerPosition.x - w / TILE_SIZE + 2, 0), Math.max(playerPosition.y - h / TILE_SIZE + 2, 0));
         final Tile[][] tiles = gameModel.getTiles();
         for (int y = 0; y < gameModel.getHeight(); y++){
             for (int x = 0; x < gameModel.getWidth(); x++){
@@ -75,8 +73,14 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         System.out.println("JGamePanel.componentResized");
         // computing topLeft, centering player on screen
         view.setSize(getWidth() / TILE_SIZE, getHeight() / TILE_SIZE);
+        adjustView();
+    }
+
+    private void adjustView(){
         final GameModel gameModel = bomberFrame.getGameModel();
-        view.setLocation(gameModel.getPlayerPosition().x - view.getSize().width / 2, gameModel.getPlayerPosition().y - view.getSize().height / 2);
+        int left = Math.max(0, Math.min(gameModel.getWidth() - view.getSize().width, gameModel.getPlayerPosition().x - view.getSize().width / 2));
+        int top = Math.max(0, Math.min(gameModel.getHeight() - view.getSize().height, gameModel.getPlayerPosition().y - view.getSize().height / 2));
+        view.setLocation(left, top);
     }
 
     @Override
