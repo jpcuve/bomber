@@ -63,7 +63,6 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         long now = System.currentTimeMillis();
         final GameModel gameModel = bomberFrame.getGameModel();
         gameModel.update(frame, keyCodes); // updater le modèle en passant les input comme paramètre
-        keyCodes.clear();
         long delay = PERIOD - (System.currentTimeMillis() - now);
         timer.setInitialDelay((int) delay); // attendre 20 ms - temps pour updater le gamemodel
         timer.start(); // ceci dont boucle sur actionPerformed toutes les 20ms
@@ -105,6 +104,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
 
     @Override
     public void keyReleased(KeyEvent e) {
+        keyCodes.remove(e.getKeyCode());
     }
 
     @Override
