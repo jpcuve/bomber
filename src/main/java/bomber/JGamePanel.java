@@ -29,9 +29,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         this.addKeyListener(this);
         this.addComponentListener(this);
         this.setFocusable(true);
-        this.timer = new Timer(0, this);
-        timer.setRepeats(false);
-        // le timer sera démarré quand le composant JGamePanel sera affiché
+        this.timer = new Timer(PERIOD, this);
     }
 
     @Override
@@ -60,12 +58,8 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
 
     @Override
     public void actionPerformed(ActionEvent e) { // va être appelé par le timer tous les "period"
-        long now = System.currentTimeMillis();
         final GameModel gameModel = bomberFrame.getGameModel();
         gameModel.update(frame, keyCodes); // updater le modèle en passant les input comme paramètre
-        long delay = PERIOD - (System.currentTimeMillis() - now);
-        timer.setInitialDelay((int) delay); // attendre 20 ms - temps pour updater le gamemodel
-        timer.start(); // ceci dont boucle sur actionPerformed toutes les 20ms
         repaint(); // provoquer le rafraichissement de la fenetre (dessin du modèle). Va appeler paint(Graphics g) dès que possible.
     }
 
