@@ -20,7 +20,8 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
     private JBomberFrame bomberFrame;
     private Timer timer;
     private long frame = 0;
-    private Set<Integer> keyCodes = new HashSet<>();
+    private Set<Integer> keyPressedCodes = new HashSet<>();
+    private Set<Integer> keyReleasedCodes = new HashSet<>();
     private Rectangle view = new Rectangle(); // in tiles unit
 
 
@@ -59,7 +60,13 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
     @Override
     public void actionPerformed(ActionEvent e) { // va être appelé par le timer tous les "period"
         final GameModel gameModel = bomberFrame.getGameModel();
-        gameModel.update(frame, keyCodes); // updater le modèle en passant les input comme paramètre
+        if (keyPressedCodes.size() > 0 && frame % 10 == 0){
+            System.out.println("Keys pressed: " + keyPressedCodes);
+            gameModel.update(frame, keyPressedCodes); // updater le modèle en passant les input comme paramètre
+            if (keyReleasedCodes.size() > 0) System.out.println("Keys released: " + keyReleasedCodes);
+            keyPressedCodes.removeAll(keyReleasedCodes);
+            keyReleasedCodes.clear();
+        }
         repaint(); // provoquer le rafraichissement de la fenetre (dessin du modèle). Va appeler paint(Graphics g) dès que possible.
     }
 
@@ -74,7 +81,7 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
 
     @Override
     public void componentShown(ComponentEvent e) {
-        keyCodes.clear();
+        keyPressedCodes.clear();
         this.requestFocusInWindow(); // demande que cette fenêtre reçoive les pressions de touches du clavier
         timer.start();
     }
@@ -93,12 +100,12 @@ public class JGamePanel extends JPanel implements ComponentListener, KeyListener
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE){ // si escape, retour à l'écran de présentation
             bomberFrame.switchToPresentation();
         }
-        keyCodes.add(e.getKeyCode());
+        keyPressedCodes.add(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        keyCodes.remove(e.getKeyCode());
+        keyReleasedCodes.add(e.getKeyCode());
     }
 
     @Override

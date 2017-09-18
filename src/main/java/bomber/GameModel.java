@@ -69,7 +69,7 @@ public class GameModel {
     }
 
     public void update(long frame, Set<Integer> keyCodes){
-        if (keyCodes.size() > 0 && frame % 10 == 0){ // si oui des touches ont été pressées
+        if (keyCodes.size() > 0){ // si oui des touches ont été pressées
             this.playerMove = new Point(0, 0);
             if (keyCodes.contains(KeyEvent.VK_UP)){
                 this.playerMove.y -= 1;
